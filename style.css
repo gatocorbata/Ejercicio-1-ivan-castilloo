@@ -1,0 +1,700 @@
+/* -----------------------------------------
+   TIPOGRAFÍAS
+----------------------------------------- */
+
+@font-face {
+  font-family: "YEEZY";
+  src: url("assets/yeezy_tstar-bold-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "PlanetKosmos";
+  src: url("assets/PLANK___.ttf") format("truetype");
+}
+
+
+/* -----------------------------------------
+   CONFIGURACIÓN GENERAL
+----------------------------------------- */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #efefec;
+  color: #171717;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+
+/* -----------------------------------------
+   ARTE GENERATIVO
+----------------------------------------- */
+
+#canvas-container {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: -1;
+
+  pointer-events: none;
+}
+
+
+/* -----------------------------------------
+   MENÚ SUPERIOR
+----------------------------------------- */
+
+.nav {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+
+  padding: 22px 32px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  z-index: 100;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #171717;
+}
+
+.logo {
+  font-family: "YEEZY", Arial, sans-serif;
+
+  font-size: 19px;
+
+  letter-spacing: 0.02em;
+}
+
+.nav-links {
+  display: flex;
+
+  gap: 28px;
+
+  font-size: 14px;
+}
+
+.nav-links a {
+  opacity: 0.55;
+
+  transition: opacity 0.2s ease;
+}
+
+.nav-links a:hover {
+  opacity: 1;
+}
+
+
+/* -----------------------------------------
+   PORTADA
+----------------------------------------- */
+
+.hero {
+  position: relative;
+
+  width: 100%;
+
+  min-height: 100vh;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  padding: 100px 5vw 50px;
+}
+
+
+.hero-content {
+  width: min(1050px, 90vw);
+
+  position: relative;
+
+  z-index: 2;
+}
+
+
+.hero-label {
+  margin: 0 0 20px;
+
+  font-size: 13px;
+
+  letter-spacing: 0.16em;
+}
+
+
+.hero h1 {
+  margin: 0;
+
+  font-family: "YEEZY", Arial, sans-serif;
+
+  font-size: clamp(85px, 15vw, 220px);
+
+  font-weight: normal;
+
+  line-height: 0.73;
+
+  letter-spacing: -0.035em;
+}
+
+
+.hero-info {
+  margin-top: 55px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  font-size: 13px;
+
+  text-transform: uppercase;
+
+  line-height: 1.4;
+}
+
+
+.scroll-indicator {
+  position: absolute;
+
+  bottom: 25px;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  font-size: 28px;
+}
+
+
+/* -----------------------------------------
+   MENÚ GRANDE DEL INICIO
+----------------------------------------- */
+
+.home-menu {
+  position: relative;
+
+  z-index: 2;
+
+  padding: 100px 4vw 170px;
+
+  background: rgba(239, 239, 236, 0.82);
+
+  backdrop-filter: blur(3px);
+}
+
+
+.section-label {
+  margin: 0 0 60px;
+
+  font-size: 11px;
+
+  letter-spacing: 0.18em;
+}
+
+
+.menu-item {
+  min-height: 150px;
+
+  display: grid;
+
+  grid-template-columns: 80px 1fr auto;
+
+  align-items: center;
+
+  border-top: 1px solid #171717;
+
+  color: #171717;
+
+  text-decoration: none;
+
+  transition:
+    padding-left 0.25s ease,
+    background 0.25s ease;
+}
+
+
+.menu-item:last-child {
+  border-bottom: 1px solid #171717;
+}
+
+
+.menu-item:hover {
+  padding-left: 20px;
+
+  background: rgba(255, 255, 255, 0.35);
+}
+
+
+.menu-number {
+  font-size: 12px;
+}
+
+
+.menu-title {
+  font-family: "YEEZY", Arial, sans-serif;
+
+  font-size: clamp(45px, 8vw, 105px);
+
+  line-height: 1;
+}
+
+
+.menu-arrow {
+  padding-right: 10px;
+
+  font-size: 36px;
+}
+
+
+/* -----------------------------------------
+   FOOTER
+----------------------------------------- */
+
+footer {
+  position: relative;
+
+  z-index: 2;
+
+  padding: 30px 4vw;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 40px;
+
+  border-top: 1px solid #171717;
+
+  background: rgba(239, 239, 236, 0.9);
+
+  font-size: 10px;
+
+  line-height: 1.4;
+}
+
+
+footer p {
+  margin: 0;
+}
+
+
+footer .ia {
+  max-width: 500px;
+
+  text-align: right;
+}
+
+
+/* -----------------------------------------
+   RESPONSIVE / TELÉFONOS
+----------------------------------------- */
+
+@media (max-width: 700px) {
+
+  .nav {
+    padding: 18px 20px;
+  }
+
+  .logo {
+    font-size: 14px;
+  }
+
+  .nav-links {
+    gap: 12px;
+
+    font-size: 11px;
+  }
+
+
+  .hero {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+
+  .hero h1 {
+    font-size: clamp(70px, 22vw, 140px);
+  }
+
+
+  .hero-info {
+    margin-top: 35px;
+  }
+
+
+  .home-menu {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+
+  .menu-item {
+    min-height: 110px;
+
+    grid-template-columns: 40px 1fr auto;
+  }
+
+
+  .menu-title {
+    font-size: clamp(38px, 13vw, 70px);
+  }
+
+
+  footer {
+    flex-direction: column;
+  }
+
+
+  footer .ia {
+    text-align: left;
+  }
+
+}
+/* -----------------------------------------
+   PÁGINAS INTERIORES
+----------------------------------------- */
+
+.pagina-interior {
+  min-height: 100vh;
+}
+
+.interior {
+  width: 92%;
+  max-width: 1400px;
+
+  margin: 0 auto;
+
+  padding-top: 150px;
+}
+
+.pagina-numero {
+  margin: 0 0 20px;
+
+  font-size: 13px;
+
+  letter-spacing: 0.12em;
+}
+
+.titulo-pagina {
+  margin: 0 0 110px;
+
+  font-family: "YEEZY", Arial, sans-serif;
+
+  font-size: clamp(80px, 13vw, 190px);
+
+  font-weight: normal;
+
+  line-height: 0.8;
+
+  letter-spacing: -0.035em;
+}
+
+
+/* -----------------------------------------
+   SOBRE MÍ
+----------------------------------------- */
+
+.sobre-grid {
+  display: grid;
+
+  grid-template-columns: 1fr 2fr;
+
+  gap: 80px;
+
+  margin-bottom: 130px;
+}
+
+.sobre-titulo {
+  font-size: 13px;
+
+  line-height: 1.6;
+
+  text-transform: uppercase;
+}
+
+.sobre-titulo p {
+  margin: 0 0 12px;
+}
+
+.sobre-texto {
+  font-size: clamp(24px, 3vw, 44px);
+
+  line-height: 1.15;
+}
+
+.sobre-texto p {
+  margin: 0 0 35px;
+}
+
+
+/* -----------------------------------------
+   DATOS
+----------------------------------------- */
+
+.datos {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  border-top: 1px solid #171717;
+
+  margin-bottom: 140px;
+}
+
+.datos div {
+  padding: 25px 15px 25px 0;
+
+  border-bottom: 1px solid #171717;
+}
+
+.datos span {
+  font-size: 10px;
+
+  letter-spacing: 0.14em;
+}
+
+.datos p {
+  margin: 30px 0 0;
+
+  font-size: 16px;
+}
+
+
+/* -----------------------------------------
+   SIGUIENTE PÁGINA
+----------------------------------------- */
+
+.next-page {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: flex-end;
+
+  padding: 50px 0;
+
+  margin-bottom: 120px;
+
+  border-top: 1px solid #171717;
+
+  color: #171717;
+
+  text-decoration: none;
+}
+
+.next-page span {
+  font-size: 11px;
+
+  letter-spacing: 0.12em;
+}
+
+.next-page strong {
+  font-family: "YEEZY", Arial, sans-serif;
+
+  font-size: clamp(40px, 6vw, 85px);
+
+  font-weight: normal;
+}
+
+
+/* -----------------------------------------
+   RESPONSIVE PÁGINAS INTERIORES
+----------------------------------------- */
+
+@media (max-width: 700px) {
+
+  .interior {
+    width: calc(100% - 40px);
+
+    padding-top: 120px;
+  }
+
+  .titulo-pagina {
+    margin-bottom: 70px;
+  }
+
+  .sobre-grid {
+    grid-template-columns: 1fr;
+
+    gap: 35px;
+  }
+
+  .datos {
+    grid-template-columns: 1fr 1fr;
+  }
+
+}
+
+/* -----------------------------------------
+   TRABAJOS
+----------------------------------------- */
+
+.lista-proyectos {
+  margin-bottom: 140px;
+}
+
+.proyecto {
+  min-height: 170px;
+
+  display: grid;
+
+  grid-template-columns: 80px 1fr auto;
+
+  align-items: center;
+
+  border-top: 1px solid #171717;
+
+  color: #171717;
+
+  text-decoration: none;
+
+  transition:
+    padding-left 0.25s ease,
+    background 0.25s ease;
+}
+
+.proyecto:last-child {
+  border-bottom: 1px solid #171717;
+}
+
+.proyecto:hover {
+  padding-left: 20px;
+
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.proyecto-numero {
+  font-size: 12px;
+}
+
+.proyecto-info h2 {
+  margin: 0;
+
+  font-family: "YEEZY", Arial, sans-serif;
+
+  font-size: clamp(42px, 6vw, 85px);
+
+  font-weight: normal;
+}
+
+.proyecto-info p {
+  margin: 6px 0 0;
+
+  font-size: 12px;
+
+  text-transform: uppercase;
+}
+
+.proyecto-arrow {
+  padding-right: 10px;
+
+  font-size: 34px;
+}
+
+@media (max-width: 700px) {
+
+  .proyecto {
+    min-height: 120px;
+
+    grid-template-columns: 40px 1fr auto;
+  }
+
+}
+
+/* -----------------------------------------
+   CONTACTO
+----------------------------------------- */
+
+.contacto-lista {
+  margin-bottom: 140px;
+}
+
+.contacto-lista a {
+  min-height: 150px;
+
+  display: grid;
+
+  grid-template-columns: 180px 1fr auto;
+
+  align-items: center;
+
+  border-top: 1px solid #171717;
+
+  color: #171717;
+
+  text-decoration: none;
+
+  transition:
+    padding-left 0.25s ease,
+    background 0.25s ease;
+}
+
+.contacto-lista a:last-child {
+  border-bottom: 1px solid #171717;
+}
+
+.contacto-lista a:hover {
+  padding-left: 20px;
+
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.contacto-tipo {
+  font-size: 11px;
+
+  letter-spacing: 0.12em;
+}
+
+.contacto-dato {
+  font-family: "YEEZY", Arial, sans-serif;
+
+  font-size: clamp(30px, 5vw, 70px);
+}
+
+.contacto-arrow {
+  padding-right: 10px;
+
+  font-size: 34px;
+}
+
+
+@media (max-width: 700px) {
+
+  .contacto-lista a {
+    min-height: 120px;
+
+    grid-template-columns: 1fr auto;
+
+    gap: 15px;
+  }
+
+  .contacto-tipo {
+    grid-column: 1 / -1;
+  }
+
+}
