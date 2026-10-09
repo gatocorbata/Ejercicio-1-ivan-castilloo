@@ -1,225 +1,197 @@
-// ---------------------------------------------
-// ARTE GENERATIVO
-// Los cuadrados aparecen y desaparecen
-// suavemente según el scroll.
-// ---------------------------------------------
 
-let squares = [];
-let colors;
+// ============================================
+// FONDO GENERATIVO — IVÁN CASTILLO
+// ============================================
 
-const cantidadMaxima = 180;
-const cantidadMinima = 45;
+const contenedor = document.getElementById(
+  "canvas-container"
+);
 
-function setup() {
+if (contenedor) {
 
-  let canvas = createCanvas(
-    window.innerWidth,
-    window.innerHeight
-  );
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
 
-  canvas.parent("canvas-container");
+  contenedor.appendChild(canvas);
 
-  noStroke();
-
-  colors = [
+  const colores = [
     "#d2d2d0",
     "#565045",
     "#3c3634"
   ];
 
-  for (let i = 0; i < cantidadMaxima; i++) {
+  const cantidadMaxima = 180;
+  const cantidadMinima = 45;
 
-    let axis = random() < 0.5 ? "x" : "y";
+  const cuadrados = [];
 
-    squares.push({
+  function aleatorio(min, max) {
+    return Math.random() * (max - min) + min;
+  }
 
-      x: random(width),
-      y: random(height),
+  function ajustarCanvas() {
 
-      size: random(30, 80),
+    const escala = Math.min(
+      window.devicePixelRatio || 1,
+      2
+    );
 
-      axis: axis,
+    canvas.width = Math.round(
+      window.innerWidth * escala
+    );
 
-      speed: random(0.5, 2),
+    canvas.height = Math.round(
+      window.innerHeight * escala
+    );
 
-      angle: random(TWO_PI),
+    canvas.style.width = window.innerWidth + "px";
+    canvas.style.height = window.innerHeight + "px";
 
-      rotSpeed: random(-0.05, 0.05),
+    ctx.setTransform(
+      escala, 0,
+      0, escala,
+      0, 0
+    );
 
-      baseColor: color(random(colors)),
+  }
 
-      // Todos comienzan completamente visibles
-      opacity: 255
+  function crearCuadrados() {
+
+    cuadrados.length = 0;
+
+    for (let i = 0; i < cantidadMaxima; i++) {
+
+      cuadrados.push({
+
+        x: aleatorio(0, window.innerWidth),
+        y: aleatorio(0, window.innerHeight),
+
+        tamaño: aleatorio(30, 80),
+
+        color: colores[
+          Math.floor(Math.random() * colores.length)
+        ],
+
+        eje: Math.random() < 0.5 ? "x" : "y",
+
+        velocidad: aleatorio(0.5, 2),
+
+        angulo: aleatorio(0, Math.PI * 2),
+
+        velocidadRotacion: aleatorio(-0.025, 0.025),
+
+        opacidad: 1
+
+      });
+
+    }
+
+  }
+
+  function obtenerProgreso() {
+
+    const alturaTotal =
+      document.documentElement.scrollHeight -
+      window.innerHeight;
+
+    if (alturaTotal <= 0) {
+      return 0;
+    }
+
+    return Math.max(
+      0,
+      Math.min(
+        1,
+        window.scrollY / alturaTotal
+      )
+    );
+
+  }
+
+  function animar() {
+
+    const ancho = window.innerWidth;
+    const alto = window.innerHeight;
+
+    ctx.clearRect(0, 0, ancho, alto);
+
+    const progreso = obtenerProgreso();
+
+    const cantidadVisible = Math.floor(
+      cantidadMaxima -
+      (cantidadMaxima - cantidadMinima) * progreso
+    );
+
+    cuadrados.forEach((cuadrado, indice) => {
+
+      const opacidadObjetivo =
+        indice < cantidadVisible ? 1 : 0;
+
+      cuadrado.opacidad +=
+        (opacidadObjetivo - cuadrado.opacidad) * 0.04;
+
+      // Dibujar cuadrado
+
+      ctx.save();
+
+      ctx.translate(
+        cuadrado.x,
+        cuadrado.y
+      );
+
+      ctx.rotate(cuadrado.angulo);
+
+      ctx.globalAlpha = cuadrado.opacidad;
+
+      ctx.fillStyle = cuadrado.color;
+
+      ctx.fillRect(
+        -cuadrado.tamaño / 2,
+        -cuadrado.tamaño / 2,
+        cuadrado.tamaño,
+        cuadrado.tamaño
+      );
+
+      ctx.restore();
+
+      // Desplazamiento
+
+      if (cuadrado.eje === "x") {
+
+        cuadrado.x += cuadrado.velocidad;
+
+        if (cuadrado.x > ancho + cuadrado.tamaño) {
+          cuadrado.x = -cuadrado.tamaño;
+        }
+
+      } else {
+
+        cuadrado.y += cuadrado.velocidad;
+
+        if (cuadrado.y > alto + cuadrado.tamaño) {
+          cuadrado.y = -cuadrado.tamaño;
+        }
+
+      }
+
+      // Rotación
+
+      cuadrado.angulo +=
+        cuadrado.velocidadRotacion;
 
     });
 
-  }
-
-}
-
-
-function draw() {
-
-  clear();
-
-
-  // ---------------------------------------------
-  // CALCULAR POSICIÓN DEL SCROLL
-  // ---------------------------------------------
-
-  let alturaScroll =
-    document.documentElement.scrollHeight -
-    window.innerHeight;
-
-  let progreso = 0;
-
-  if (alturaScroll > 0) {
-
-    progreso = constrain(
-      window.scrollY / alturaScroll,
-      0,
-      1
-    );
+    requestAnimationFrame(animar);
 
   }
 
+  ajustarCanvas();
+  crearCuadrados();
+  animar();
 
-  // Cantidad ideal de cuadrados
-  // según cuánto hemos bajado
-
-  let cantidadObjetivo = floor(
-
-    lerp(
-      cantidadMaxima,
-      cantidadMinima,
-      progreso
-    )
-
-  );
-
-
-  // ---------------------------------------------
-  // DIBUJAR TODOS LOS CUADRADOS
-  // ---------------------------------------------
-
-  for (let i = 0; i < squares.length; i++) {
-
-    let s = squares[i];
-
-
-    // Los primeros cuadrados permanecen visibles.
-    // Los demás comienzan a desaparecer.
-
-    let opacidadObjetivo;
-
-    if (i < cantidadObjetivo) {
-
-      opacidadObjetivo = 255;
-
-    }
-
-    else {
-
-      opacidadObjetivo = 0;
-
-    }
-
-
-    // Esta es la parte importante:
-    // en vez de cambiar instantáneamente,
-    // la opacidad se acerca lentamente
-    // al valor deseado.
-
-    s.opacity = lerp(
-      s.opacity,
-      opacidadObjetivo,
-      0.04
-    );
-
-
-    // ---------------------------------------------
-    // DIBUJAR
-    // ---------------------------------------------
-
-    push();
-
-    translate(
-      s.x,
-      s.y
-    );
-
-    rotate(
-      s.angle
-    );
-
-
-    let c = s.baseColor;
-
-    fill(
-      red(c),
-      green(c),
-      blue(c),
-      s.opacity
-    );
-
-
-    rectMode(CENTER);
-
-    rect(
-      0,
-      0,
-      s.size,
-      s.size
-    );
-
-    pop();
-
-
-    // ---------------------------------------------
-    // MOVIMIENTO
-    // ---------------------------------------------
-
-    if (s.axis === "x") {
-
-      s.x += s.speed;
-
-      if (s.x > width + s.size) {
-
-        s.x = -s.size;
-
-      }
-
-    }
-
-    else {
-
-      s.y += s.speed;
-
-      if (s.y > height + s.size) {
-
-        s.y = -s.size;
-
-      }
-
-    }
-
-
-    s.angle += s.rotSpeed;
-
-  }
-
-}
-
-
-// ---------------------------------------------
-// AJUSTAR CANVAS AL CAMBIAR TAMAÑO
-// ---------------------------------------------
-
-function windowResized() {
-
-  resizeCanvas(
-    window.innerWidth,
-    window.innerHeight
+  window.addEventListener(
+    "resize",
+    ajustarCanvas
   );
 
 }

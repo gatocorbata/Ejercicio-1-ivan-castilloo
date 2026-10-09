@@ -1,176 +1,107 @@
+
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Iván Castillo — Portafolio</title>
-
+  <title>Portafolio — Iván Castillo</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
-
-<body class="home">
-
+<body class="pagina-inicio">
 
   <!-- FONDO GENERATIVO -->
-  <div id="canvas-container"></div>
+  <div id="canvas-container" aria-hidden="true"></div>
 
-
-  <!-- NAVEGACIÓN -->
+  <!-- BARRA DE NAVEGACIÓN -->
   <nav class="nav">
-
-    <a href="index.html" class="logo">
-      IVÁN CASTILLO
-    </a>
+    <a href="index.html" class="logo">IVÁN CASTILLO</a>
 
     <div class="nav-links">
+      <a href="index.html" class="active">Inicio</a>
+      <a href="sobre-mi.html">Sobre mí</a>
+      <a href="trabajos.html">Trabajos</a>
+      <a href="contacto.html">Contacto</a>
+    </div>
+  </nav>
 
-      <a href="sobre-mi.html">
-        Sobre mí
-      </a>
+  <!-- PORTADA -->
+  <header class="hero">
 
-      <a href="trabajos.html">
-        Trabajos
-      </a>
+    <div class="hero-content">
 
-      <a href="contacto.html">
-        Contacto
-      </a>
+      <p class="hero-label">
+        PORTAFOLIO / 2026
+      </p>
+
+      <h1>
+        IVÁN<br>CASTILLO
+      </h1>
+
+      <div class="hero-info">
+        <span>PORTAFOLIO DE DISEÑO</span>
+        <span>PROYECTOS Y EJERCICIOS</span>
+      </div>
 
     </div>
 
-  </nav>
+    <a
+      href="#tareas"
+      class="scroll-indicator"
+      aria-label="Ver tareas"
+    >↓</a>
 
+  </header>
 
-  <!-- PORTADA -->
+  <!-- TAREAS ACTUALES -->
   <main>
-
-    <section class="hero">
-
-      <div class="hero-content">
-
-        <p class="hero-label">
-          PORTAFOLIO
-        </p>
-
-        <h1>
-          IVÁN<br>
-          CASTILLO
-        </h1>
-
-        <div class="hero-info">
-
-          <p>
-            Diseño<br>
-            EAD PUCV
-          </p>
-
-          <p>
-            2024—2026
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <div class="scroll-indicator">
-        ↓
-      </div>
-
-    </section>
-
-
-
-    <!-- ACCESOS PRINCIPALES -->
-    <section class="home-menu">
+    <section class="home-menu" id="tareas">
 
       <p class="section-label">
-        NAVEGACIÓN
+        01 / TAREAS Y EJERCICIOS
       </p>
 
-
-      <a href="sobre-mi.html" class="menu-item">
-
-        <span class="menu-number">
-          01
-        </span>
+      <!-- TAREA 1 -->
+      <a
+        class="menu-item"
+        href="analisis-comparativo.html"
+      >
+        <span class="menu-number">01</span>
 
         <span class="menu-title">
-          SOBRE MÍ
+          ANÁLISIS COMPARATIVO
         </span>
 
-        <span class="menu-arrow">
-          →
-        </span>
-
+        <span class="menu-arrow">↗</span>
       </a>
 
-
-      <a href="trabajos.html" class="menu-item">
-
-        <span class="menu-number">
-          02
-        </span>
-
-        <span class="menu-title">
-          TRABAJOS
-        </span>
-
-        <span class="menu-arrow">
-          →
-        </span>
-
-      </a>
-
-
-      <a href="contacto.html" class="menu-item">
-
-        <span class="menu-number">
-          03
-        </span>
+      <!-- TAREA 2 -->
+      <a
+        class="menu-item"
+        href="https://gatocorbata.github.io/ejercicio2ivancastillo/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="menu-number">02</span>
 
         <span class="menu-title">
-          CONTACTO
+          EJERCICIO 2
         </span>
 
-        <span class="menu-arrow">
-          →
-        </span>
-
+        <span class="menu-arrow">↗</span>
       </a>
 
     </section>
-
   </main>
 
-
-
-  <!-- DISCLAIMER -->
+  <!-- PIE DE PÁGINA -->
   <footer>
-
-    <p>
-      Portafolio académico — Iván Castillo
-    </p>
-
-    <p class="ia">
-      Sitio desarrollado con apoyo de herramientas de inteligencia artificial
-      para asistencia en programación y estructuración del código.
-    </p>
-
+    <p>IVÁN CASTILLO © 2026</p>
+    <p>PORTAFOLIO DE DISEÑO</p>
   </footer>
 
-
-
-  <!-- P5.JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
-
-  <!-- TU ARCHIVO JS -->
+  <!-- FONDO ANIMADO -->
   <script src="index.js"></script>
 
-
 </body>
-
 </html>

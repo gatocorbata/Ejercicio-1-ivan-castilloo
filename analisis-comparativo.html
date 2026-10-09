@@ -1,0 +1,915 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Análisis comparativo — Iván Castillo</title>
+
+  <style>
+    :root {
+      --fondo: #efefec;
+      --texto: #171717;
+      --secundario: #68665f;
+      --linea: #c9c8c2;
+      --acento: #565045;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--fondo);
+      color: var(--texto);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .barra-superior {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      min-height: 75px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 18px 5%;
+      background: rgba(239, 239, 236, 0.96);
+      border-bottom: 1px solid var(--linea);
+      backdrop-filter: blur(10px);
+    }
+
+    .identidad {
+      font-weight: bold;
+      font-size: 17px;
+      letter-spacing: 0.04em;
+    }
+
+    .volver {
+      font-size: 13px;
+      color: var(--secundario);
+    }
+
+    .volver:hover {
+      color: var(--texto);
+      text-decoration: underline;
+    }
+
+    .portada {
+      padding: 100px 8% 90px;
+      border-bottom: 1px solid var(--linea);
+    }
+
+    .etiqueta,
+    .numero {
+      display: block;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--acento);
+      font-weight: bold;
+    }
+
+    h1 {
+      max-width: 1000px;
+      margin: 30px 0;
+      font-size: clamp(48px, 8vw, 115px);
+      line-height: 0.95;
+      letter-spacing: -0.055em;
+    }
+
+    .bajada {
+      max-width: 730px;
+      font-size: clamp(17px, 2vw, 22px);
+      color: var(--secundario);
+      line-height: 1.5;
+    }
+
+    .datos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 45px;
+      margin-top: 60px;
+    }
+
+    .dato span {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--secundario);
+    }
+
+    .dato strong {
+      display: block;
+      margin-top: 6px;
+      font-size: 14px;
+      font-weight: normal;
+    }
+
+    .contenido {
+      display: grid;
+      grid-template-columns: 210px minmax(0, 790px);
+      justify-content: center;
+      gap: 75px;
+      padding: 85px 6%;
+    }
+
+    .indice {
+      position: sticky;
+      top: 110px;
+      align-self: start;
+    }
+
+    .indice h2 {
+      margin: 0 0 20px;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .indice a {
+      display: block;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--linea);
+      color: var(--secundario);
+      font-size: 13px;
+    }
+
+    .indice a:hover {
+      color: var(--texto);
+    }
+
+    article {
+      min-width: 0;
+    }
+
+    .seccion {
+      margin-bottom: 90px;
+      scroll-margin-top: 110px;
+    }
+
+    .numero {
+      margin-bottom: 14px;
+    }
+
+    article h2 {
+      margin: 0 0 30px;
+      font-size: clamp(30px, 4vw, 45px);
+      line-height: 1.15;
+      letter-spacing: -0.035em;
+    }
+
+    article h3 {
+      margin: 45px 0 20px;
+      font-size: 21px;
+      line-height: 1.3;
+    }
+
+    article p {
+      margin: 0 0 23px;
+      font-size: 16px;
+    }
+
+    .observacion {
+      margin: 35px 0;
+      padding: 27px 30px;
+      background: #fff;
+      border-left: 3px solid var(--acento);
+    }
+
+    .observacion strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .observacion p {
+      margin: 0;
+      font-size: 15px;
+    }
+
+    .tabla-contenedor {
+      width: 100%;
+      margin: 35px 0;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 16px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--linea);
+    }
+
+    th {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    code {
+      padding: 2px 5px;
+      background: #e1e0da;
+      font-family: Consolas, monospace;
+      font-size: 0.9em;
+      overflow-wrap: anywhere;
+    }
+
+    pre {
+      margin: 30px 0;
+      padding: 25px;
+      background: #252420;
+      color: #f5f4f0;
+      overflow-x: auto;
+      line-height: 1.6;
+    }
+
+    pre code {
+      padding: 0;
+      background: none;
+      color: inherit;
+    }
+
+    .imagen-pendiente {
+      margin: 38px 0;
+      min-height: 250px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      text-align: center;
+      border: 1px dashed #96938a;
+      background: rgba(255, 255, 255, 0.45);
+    }
+
+    .imagen-pendiente span {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--secundario);
+    }
+
+    .imagen-pendiente strong {
+      font-size: 18px;
+      font-weight: normal;
+    }
+
+    .imagen-pendiente small {
+      max-width: 450px;
+      font-size: 13px;
+      color: var(--secundario);
+    }
+
+    .cierre {
+      padding: 40px;
+      background: #252420;
+      color: #f5f4f0;
+    }
+
+    .cierre .numero {
+      color: #c8c4b7;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 25px;
+      padding: 30px 5%;
+      border-top: 1px solid var(--linea);
+      font-size: 12px;
+      color: var(--secundario);
+    }
+
+    @media (max-width: 850px) {
+      .contenido {
+        grid-template-columns: 1fr;
+        gap: 45px;
+        padding: 60px 7%;
+      }
+
+      .indice {
+        position: static;
+      }
+
+      .indice a {
+        display: inline-block;
+        margin-right: 16px;
+      }
+
+      .portada {
+        padding: 75px 7%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .barra-superior {
+        padding: 18px 5%;
+      }
+
+      .identidad {
+        font-size: 13px;
+      }
+
+      .volver {
+        font-size: 12px;
+      }
+
+      .portada {
+        padding: 65px 6%;
+      }
+
+      .contenido {
+        padding: 50px 6%;
+      }
+
+      .datos {
+        gap: 25px;
+      }
+
+      .observacion,
+      .cierre {
+        padding: 24px;
+      }
+
+      footer {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- BARRA SUPERIOR -->
+  <header class="barra-superior">
+    <a class="identidad" href="index.html">
+      IVÁN CASTILLO
+    </a>
+
+    <a class="volver" href="index.html#tareas">
+      ← Volver al portafolio
+    </a>
+  </header>
+
+  <!-- PORTADA -->
+  <section class="portada">
+
+    <span class="etiqueta">
+      TAREA 01 / DISEÑO WEB
+    </span>
+
+    <h1>
+      ANÁLISIS<br>
+      COMPARATIVO
+    </h1>
+
+    <p class="bajada">
+      Estudio de la interfaz de YouTube a partir
+      de su adaptación a distintos tamaños de pantalla
+      y de la inspección de sus componentes mediante
+      Chrome DevTools.
+    </p>
+
+    <div class="datos">
+
+      <div class="dato">
+        <span>Autor</span>
+        <strong>Iván Castillo</strong>
+      </div>
+
+      <div class="dato">
+        <span>Interfaz analizada</span>
+        <strong>YouTube</strong>
+      </div>
+
+      <div class="dato">
+        <span>Método</span>
+        <strong>Observación y Chrome DevTools</strong>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTENIDO -->
+  <main class="contenido">
+
+    <nav class="indice" aria-label="Índice del análisis">
+      <h2>Contenido</h2>
+
+      <a href="#introduccion">Introducción</a>
+      <a href="#responsividad">01. Vista responsiva</a>
+      <a href="#tarjetas">02. Tarjetas de video</a>
+      <a href="#estructura">03. Estructura HTML y CSS</a>
+      <a href="#conclusion">Conclusión</a>
+    </nav>
+
+    <article>
+
+      <!-- INTRODUCCIÓN -->
+      <section class="seccion" id="introduccion">
+
+        <span class="numero">PUNTO DE PARTIDA</span>
+        <h2>Introducción</h2>
+
+        <p>
+          YouTube es una plataforma que organiza una gran
+          cantidad de contenidos audiovisuales dentro de
+          una misma interfaz. En su página de inicio conviven
+          videos recomendados, Shorts, categorías, información
+          de los canales y herramientas de navegación.
+          A pesar de la cantidad de elementos que presenta,
+          la página mantiene una estructura que permite
+          reconocer cada contenido y recorrerlo.
+        </p>
+
+        <p>
+          Para observar cómo se construye esta interfaz,
+          el análisis se dividió en dos partes. La primera
+          consiste en revisar la página en distintos tamaños
+          de pantalla mediante la vista responsiva de Chrome
+          DevTools. La segunda se centra en inspeccionar los
+          elementos HTML que componen las tarjetas de video
+          y la distribución general de los contenidos.
+        </p>
+
+        <p>
+          Ambas observaciones permiten relacionar lo que
+          se ve en pantalla con la estructura que existe
+          detrás de la interfaz. De esta manera, la página
+          no se entiende solamente como una composición
+          visual, sino también como un sistema de elementos
+          que se reorganizan según el espacio disponible.
+        </p>
+
+      </section>
+
+      <!-- RESPONSIVIDAD -->
+      <section class="seccion" id="responsividad">
+
+        <span class="numero">01 / PRIMERA PARTE</span>
+        <h2>La vista responsiva</h2>
+
+        <p>
+          La primera parte del análisis se realizó utilizando
+          la herramienta de vista responsiva de Chrome DevTools.
+          Esta permite modificar el ancho y el alto del área
+          de visualización para observar cómo responde una
+          página cuando cambia el espacio disponible.
+        </p>
+
+        <p>
+          Se revisó YouTube en un ancho de aproximadamente
+          390 píxeles y luego en uno de 901 píxeles. También
+          se comparó esta visualización con la versión de
+          escritorio. El cambio de dimensiones permitió
+          observar diferencias en la cantidad de videos
+          que aparecen por fila, el tamaño de las tarjetas
+          y la organización de los elementos de navegación.
+        </p>
+
+        <h3>En un ancho de 390 píxeles</h3>
+
+        <p>
+          En la vista más estrecha, la página presenta una
+          distribución principalmente vertical. Los videos
+          principales se organizan en una sola columna,
+          por lo que cada contenido ocupa una mayor
+          proporción del ancho disponible. Esto facilita
+          la lectura de los títulos y la identificación
+          de cada publicación.
+        </p>
+
+        <p>
+          Los elementos de navegación también se simplifican
+          visualmente. Se observa una barra superior con el
+          logotipo y las acciones principales, una fila de
+          categorías que permite desplazarse horizontalmente
+          y una barra inferior con accesos a las secciones
+          más utilizadas. Los Shorts, en cambio, pueden
+          aparecer en grupos de varias tarjetas más estrechas.
+        </p>
+
+        <div class="imagen-pendiente">
+          <span>Imagen pendiente / 01</span>
+          <strong>Vista de YouTube a 390 px</strong>
+          <small>
+            Captura de pantalla de la vista estrecha.
+          </small>
+        </div>
+
+        <div class="observacion">
+          <strong>Observación</strong>
+          <p>
+            En una pantalla estrecha, la distribución
+            vertical da prioridad a la lectura de cada
+            contenido y al desplazamiento continuo.
+            La interfaz conserva sus funciones principales,
+            pero modifica la forma en que se presentan.
+          </p>
+        </div>
+
+        <h3>En un ancho de 901 píxeles</h3>
+
+        <p>
+          Al aumentar el ancho disponible, la distribución
+          cambia. En la captura analizada, los videos
+          principales aparecen en dos columnas, lo que
+          permite comparar varias recomendaciones al mismo
+          tiempo. Las imágenes y los textos de cada tarjeta
+          se ajustan al espacio que ocupa cada columna.
+        </p>
+
+        <p>
+          También se observa una navegación lateral más
+          compacta que en la versión de escritorio completa.
+          La interfaz aprovecha el espacio horizontal para
+          presentar más contenidos sin perder la separación
+          entre las tarjetas. Los títulos, las imágenes y
+          los datos de cada video siguen una organización
+          similar a la vista más estrecha, aunque cambia
+          su escala.
+        </p>
+
+        <div class="imagen-pendiente">
+          <span>Imagen pendiente / 02</span>
+          <strong>Vista de YouTube a 901 px</strong>
+          <small>
+            Captura de la distribución intermedia.
+          </small>
+        </div>
+
+        <h3>En la versión de escritorio</h3>
+
+        <p>
+          En la vista de escritorio, YouTube dispone de más
+          espacio horizontal para distribuir los contenidos
+          en varias columnas. La navegación lateral puede
+          mostrar más opciones, mientras que la parte central
+          presenta una mayor cantidad de recomendaciones
+          por fila.
+        </p>
+
+        <p>
+          La diferencia no consiste únicamente en agrandar
+          los elementos. La distribución utiliza el espacio
+          disponible para modificar la cantidad de tarjetas
+          visibles en cada fila y las proporciones de la
+          composición. Esto permite que la página conserve
+          una estructura reconocible sin mantener exactamente
+          la misma distribución en todas las pantallas.
+        </p>
+
+        <div class="imagen-pendiente">
+          <span>Imagen pendiente / 03</span>
+          <strong>Vista de escritorio</strong>
+          <small>
+            Captura de YouTube en pantalla amplia.
+          </small>
+        </div>
+
+        <div class="tabla-contenedor">
+          <table>
+            <thead>
+              <tr>
+                <th>Vista</th>
+                <th>Distribución observada</th>
+                <th>Característica</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>390 px</td>
+                <td>Una columna principal</td>
+                <td>
+                  Prioriza la lectura vertical
+                  y el desplazamiento.
+                </td>
+              </tr>
+
+              <tr>
+                <td>901 px</td>
+                <td>Dos columnas principales</td>
+                <td>
+                  Aprovecha el ancho para mostrar
+                  más recomendaciones.
+                </td>
+              </tr>
+
+              <tr>
+                <td>Escritorio</td>
+                <td>Varias columnas</td>
+                <td>
+                  Integra navegación lateral y una
+                  mayor cantidad de contenidos.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          La comparación muestra que la responsividad es
+          una parte importante de la organización de YouTube.
+          La interfaz adapta la distribución de sus contenidos
+          a diferentes condiciones de visualización, manteniendo
+          reconocibles sus componentes principales. Las
+          cantidades de columnas descritas corresponden a las
+          vistas observadas y no representan necesariamente
+          un comportamiento idéntico en todas las resoluciones.
+        </p>
+
+      </section>
+
+      <!-- TARJETAS -->
+      <section class="seccion" id="tarjetas">
+
+        <span class="numero">02 / SEGUNDA PARTE</span>
+        <h2>Las tarjetas de video</h2>
+
+        <p>
+          La segunda parte del trabajo consistió en
+          inspeccionar la estructura de YouTube mediante
+          la pestaña Elements de Chrome DevTools. Esta
+          herramienta permite seleccionar elementos de
+          la página, observar sus dimensiones y revisar
+          propiedades de estilo como el tipo de visualización,
+          el ancho, el alto y los márgenes.
+        </p>
+
+        <p>
+          Durante la inspección se identificó el elemento
+          <code>ytd-rich-item-renderer</code>, que participa
+          en la construcción de las tarjetas de contenido
+          de la página de inicio. Al seleccionarlo, DevTools
+          resalta el área que ocupa la tarjeta en la página,
+          lo que permite relacionar directamente la estructura
+          HTML con el resultado visual.
+        </p>
+
+        <p>
+          Dentro de este elemento se encuentra un contenedor
+          identificado como <code>content</code>, que agrupa
+          distintos componentes de la tarjeta. Entre ellos
+          se encuentran la imagen de vista previa del video,
+          el título, la información del canal y otros datos
+          asociados a la publicación.
+        </p>
+
+        <div class="imagen-pendiente">
+          <span>Imagen pendiente / 04</span>
+          <strong>Inspección de una tarjeta</strong>
+          <small>
+            Captura de Chrome DevTools con el elemento
+            ytd-rich-item-renderer seleccionado.
+          </small>
+        </div>
+
+        <h3>La imagen y el contenido</h3>
+
+        <p>
+          La imagen de vista previa es uno de los componentes
+          que ocupa mayor superficie dentro de la tarjeta.
+          Su proporción condiciona la forma general del
+          contenido y establece una primera referencia
+          visual para identificar el video.
+        </p>
+
+        <p>
+          Debajo de la imagen se organiza la información
+          complementaria. El título ocupa una posición
+          destacada, seguido por el nombre del canal y
+          los datos de visualización o antigüedad de la
+          publicación. Esta jerarquía permite reconocer
+          rápidamente el contenido antes de decidir si
+          se quiere abrir.
+        </p>
+
+        <p>
+          También se observó que las tarjetas no son
+          elementos aislados. Se repiten dentro de una
+          misma zona de contenido y mantienen una
+          estructura semejante. La repetición de esta
+          unidad permite organizar numerosas recomendaciones
+          sin que cada una necesite una composición
+          completamente diferente.
+        </p>
+
+        <div class="observacion">
+          <strong>Observación</strong>
+          <p>
+            La tarjeta funciona como una unidad de
+            información que combina imagen, texto y datos
+            del video. La repetición de esta estructura
+            hace posible construir una página extensa y
+            mantener una organización visual reconocible.
+          </p>
+        </div>
+
+        <h3>Dimensiones y adaptación</h3>
+
+        <p>
+          Al seleccionar diferentes tarjetas, DevTools
+          muestra sus dimensiones en píxeles. En las
+          capturas se registraron valores aproximados
+          de 382,8 píxeles de ancho por 315,3 píxeles
+          de alto en una vista intermedia, y de 278,4
+          píxeles de ancho por 256,6 píxeles de alto
+          en la vista más estrecha.
+        </p>
+
+        <p>
+          Estas medidas corresponden a los elementos
+          seleccionados en las capturas y no deben
+          entenderse como dimensiones fijas para todas
+          las tarjetas. Los valores cambian según el
+          espacio disponible, la distribución de la
+          página y el contenido mostrado.
+        </p>
+
+        <p>
+          La inspección también permitió observar que
+          el contenedor de la tarjeta utiliza propiedades
+          que influyen en su organización interna. En
+          el panel Computed se pueden consultar los
+          valores calculados que finalmente utiliza el
+          navegador, mientras que el diagrama del modelo
+          de caja permite distinguir el contenido, el
+          padding, el borde y los márgenes.
+        </p>
+
+        <div class="imagen-pendiente">
+          <span>Imagen pendiente / 05</span>
+          <strong>Dimensiones y modelo de caja</strong>
+          <small>
+            Captura de las medidas y propiedades
+            observadas en Chrome DevTools.
+          </small>
+        </div>
+
+      </section>
+
+      <!-- ESTRUCTURA -->
+      <section class="seccion" id="estructura">
+
+        <span class="numero">
+          03 / ESTRUCTURA Y DISTRIBUCIÓN
+        </span>
+
+        <h2>La organización mediante Flexbox</h2>
+
+        <p>
+          Además de las tarjetas individuales, se
+          inspeccionó el contenedor principal de los
+          contenidos de YouTube, identificado como
+          <code>contents</code>. En DevTools se observó
+          que utiliza la propiedad <code>display: flex</code>
+          y el comportamiento de ajuste de línea mediante
+          <code>flex-wrap: wrap</code>.
+        </p>
+
+        <p>
+          Flexbox permite distribuir los elementos dentro
+          de un contenedor. Cuando se utiliza junto con
+          <code>flex-wrap: wrap</code>, los elementos pueden
+          pasar a una nueva fila cuando no hay espacio
+          suficiente para mantenerlos en la misma línea.
+          Esto ayuda a explicar cómo una colección de
+          tarjetas puede distribuirse en varias columnas
+          y reorganizarse cuando cambia el ancho disponible.
+        </p>
+
+        <p>
+          En las capturas también se observan atributos
+          y clases asociados al número de elementos por
+          fila. Estos datos forman parte de la implementación
+          específica de YouTube y ayudan a identificar
+          variaciones entre las distribuciones observadas.
+          Sin embargo, la inspección visual por sí sola
+          no permite afirmar que toda la responsividad
+          de la plataforma dependa exclusivamente de Flexbox.
+        </p>
+
+        <pre><code>#contents {
+  display: flex;
+  flex-wrap: wrap;
+}</code></pre>
+
+        <p>
+          El fragmento anterior representa las propiedades
+          observadas en el contenedor durante la inspección.
+          Es una representación simplificada del comportamiento
+          identificado y no corresponde al código completo
+          de YouTube.
+        </p>
+
+        <div class="imagen-pendiente">
+          <span>Imagen pendiente / 06</span>
+          <strong>Inspección del contenedor contents</strong>
+          <small>
+            Captura de las propiedades Flexbox
+            y la distribución de las tarjetas.
+          </small>
+        </div>
+
+        <h3>La relación entre estructura y apariencia</h3>
+
+        <p>
+          La estructura HTML define los elementos que
+          componen la página, mientras que las propiedades
+          CSS intervienen en su distribución y apariencia.
+          En este caso, el contenedor principal organiza
+          las tarjetas y cada tarjeta reúne la información
+          de un video.
+        </p>
+
+        <p>
+          La vista responsiva y la inspección de elementos
+          permiten observar dos aspectos complementarios:
+          el resultado visible en pantalla y la organización
+          interna que contribuye a producirlo. Al comparar
+          ambos, es posible comprender mejor cómo se
+          distribuye la información en una interfaz digital.
+        </p>
+
+      </section>
+
+      <!-- CONCLUSIÓN -->
+      <section class="seccion cierre" id="conclusion">
+
+        <span class="numero">CIERRE</span>
+        <h2>Conclusión</h2>
+
+        <p>
+          El análisis de YouTube permitió observar cómo
+          una misma interfaz puede cambiar su distribución
+          sin perder la identidad de sus componentes.
+          Al comparar diferentes anchos de pantalla,
+          se identificaron variaciones en la cantidad
+          de tarjetas por fila, en las dimensiones de
+          los contenidos y en la organización de los
+          elementos de navegación.
+        </p>
+
+        <p>
+          La inspección mediante Chrome DevTools
+          complementó esta observación al permitir
+          reconocer las tarjetas de video, sus
+          componentes internos y las propiedades que
+          participan en la distribución de la página.
+          Elementos como <code>ytd-rich-item-renderer</code>
+          y el contenedor <code>contents</code> muestran
+          cómo las unidades de información se integran
+          dentro de una estructura más amplia.
+        </p>
+
+        <p>
+          En conjunto, ambas partes muestran que el diseño
+          de una página web no depende solamente de la
+          apariencia de cada elemento. También depende
+          de cómo se organizan, se relacionan y se adaptan
+          entre sí. La responsividad permite que esa
+          organización se ajuste a distintos espacios,
+          mientras que la estructura de los componentes
+          mantiene una lógica reconocible para el usuario.
+        </p>
+
+      </section>
+
+    </article>
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer>
+    <span>Iván Castillo · Análisis comparativo</span>
+
+    <a href="index.html#tareas">
+      Volver a las tareas ↑
+    </a>
+  </footer>
+
+</body>
+</html>
